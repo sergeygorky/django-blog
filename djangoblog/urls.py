@@ -17,7 +17,10 @@ from django.contrib import admin
 from posts import views
 from django.urls import include, path
 
+from django.apps import apps
+posts_name = apps.get_app_config('posts').verbose_name
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('posts/', include("posts.urls")),
+    path('posts/', include(("posts.urls", posts_name), namespace='posts')),
 ]
