@@ -10,7 +10,7 @@ from .views import post_delete
 urlpatterns = [
     re_path('^$', views.post_list),
     re_path('^create/$', post_create),
-    re_path(r'^(?P<id>\d)/$', post_detail),
+    re_path(r'^(?P<id>\d)/$', post_detail, name='detail'),
     re_path('^update/$', post_update),
     re_path('^delete/$', post_delete),
 ]
