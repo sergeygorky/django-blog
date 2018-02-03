@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'posts/base.html' %}
+
+{% block content %}
     <h1>{{ title }} is working!</h1>
     <p>
         {% for obj in object_list %}
@@ -16,6 +12,4 @@
             {{ obj.pk }} <br>
         {% endfor %}
     </p>
-
-</body>
-</html>
+{% endblock content %}

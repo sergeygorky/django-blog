@@ -12,8 +12,6 @@ def post_create(request):
         instance.save()
         messages.success(request, 'Successfully Created')
         return HttpResponseRedirect(instance.get_absolute_url())
-    else:
-        messages.error(request, 'Not Successfully Created')
     context = {
         'form': form,
 
@@ -36,7 +34,7 @@ def post_list(request):
         'object_list': queryset,
         'title': 'List'
     }
-    return render(request, 'posts/index.html', context)
+    return render(request, 'posts/post_list.html', context)
 
 
 def post_update(request, id=None):
@@ -45,7 +43,8 @@ def post_update(request, id=None):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        messages.success(request, '<a href="#">Item</a>Saved', extra_tags='html_safe')
+        messages.success(request, '<a href="#">Item</a>Saved',
+                         extra_tags='html_safe')
         return HttpResponseRedirect(instance.get_absolute_url())
     context = {
         'title': instance.title,
@@ -55,7 +54,7 @@ def post_update(request, id=None):
     return render(request, 'posts/post_form.html', context)
 
 
-def post_delete (request, id=None):
+def post_delete(request, id=None):
     instance = get_object_or_404(Post, id=id)
     instance.delete()
     messages.success(request, 'Successfully Deleted')
