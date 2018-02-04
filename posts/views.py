@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from .forms import PostForm
 from .models import Post
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
 
 
 def post_create(request):
@@ -29,7 +31,11 @@ def post_detail(request, id=None):
 
 
 def post_list(request):
-    queryset = Post.objects.all()
+    queryset_list = Post.objects.all()
+    paginator = Paginator(queryset_list, 5)
+
+    page = request.GET.get('page')
+    queryset = paginator.get_page(page)
     context = {
         'object_list': queryset,
         'title': 'List'
