@@ -11,5 +11,4 @@ urlpatterns = [
     re_path(r'^(?P<id>\d+)/$', post_detail, name='detail'),
     re_path(r'^(?P<id>\d+)/edit/$', post_update, name='update'),
     re_path(r'^(?P<id>\d+)/delete/$', post_delete),
-    re_path(r'^(?P<id>\d+)/$', post_detail, name='detail')
 ]
