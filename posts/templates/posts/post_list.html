@@ -5,6 +5,10 @@
         <h1>{{ title }}</h1>
         {% for obj in object_list %}
             <div class="row">
+                {% if obj.image %}
+                    <img src="{{ obj.image.url }}" alt="{{ obj.image }}"
+                         class="image-responsive">
+                {% endif %}
                 <div class="col-sm-12">
                     <h3>
                         <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a>
