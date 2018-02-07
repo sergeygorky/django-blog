@@ -1,14 +1,17 @@
 from django.db import models
 from django.urls import reverse
 from django.db.models.signals import pre_save
-
+from django.conf import settings
 from django.utils.text import slugify
+
 
 def upload_location(instance, filename):
     return '%s/%s' % (instance.id, filename)
 
 
 class Post(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1,
+                             on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     image = models.ImageField(null=True, blank=True, upload_to=upload_location,
@@ -37,7 +40,7 @@ def create_slug(instance, new_slug=None):
     qs = Post.objects.filter(slug=slug).order_by('-id')
     exists = qs.exists()
     if exists:
-        new_slug = "%s-%s" %(slug, qs.first().id)
+        new_slug = "%s-%s" % (slug, qs.first().id)
         return create_slug(instance, new_slug=new_slug)
     return slug
 
